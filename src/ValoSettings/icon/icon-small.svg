@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- ValoSettings — petite icône (16 à 32 px) : la touche seule, comme la marque de l'en-tête -->
+  <rect x="8" y="24" width="240" height="224" rx="64" fill="#C9410A"/>
+  <rect x="8" y="8" width="240" height="224" rx="64" fill="#FF5B14"/>
+  <circle cx="128" cy="120" r="44" fill="#141414"/>
+</svg>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ValoSettings</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="app">
+    <header class="masthead">
+      <div class="brand">
+        <span class="brand-name">ValoSettings</span>
+      </div>
+      <nav class="nav" role="tablist" aria-label="Sections">
+        <button class="nav-item active" data-tab="accounts" role="tab" aria-selected="true"><span class="idx">01</span>Comptes</button>
+        <button class="nav-item" data-tab="profiles" role="tab" aria-selected="false"><span class="idx">02</span>Profils</button>
+      </nav>
+      <div class="status" id="status" aria-live="polite"><span class="micro dim">…</span></div>
+    </header>
+    <div class="alert" id="alert" hidden></div>
+
+    <main class="main" id="main">
+      <section class="view active" id="tab-accounts" role="tabpanel">
+        <header class="vhead">
+          <div class="vhead-text"><h2>Comptes</h2></div>
+          <div class="ghost" aria-hidden="true">Comptes</div>
+        </header>
+        <div class="toolbar">
+          <div class="tools">
+            <button class="btn primary" data-action="save-current">+ Enregistrer</button>
+          </div>
+        </div>
+        <div class="table accounts" id="accountsGrid"></div>
+      </section>
+
+      <section class="view" id="tab-profiles" role="tabpanel">
+        <header class="vhead">
+          <div class="vhead-text"><h2>Profils</h2></div>
+          <div class="ghost" aria-hidden="true">Profils</div>
+        </header>
+        <div class="toolbar">
+          <div class="tools">
+            <button class="btn primary" data-action="save-current">+ Enregistrer</button>
+            <button class="btn" data-action="import-file">Importer</button>
+            <button class="btn" data-action="import-code">Code</button>
+            <button class="btn" data-action="open-folder">Dossier ↗</button>
+          </div>
+        </div>
+        <div class="table profiles" id="profilesList"></div>
+        <details class="backups" id="backupsBox">
+          <summary>
+            <span class="micro">Sauvegardes <span class="cnt" id="nBackups"></span></span>
+            <span class="micro sum-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="table profiles" id="backupsList"></div>
+        </details>
+      </section>
+    </main>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div id="toasts" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

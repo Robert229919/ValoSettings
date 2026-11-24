@@ -1,0 +1,10 @@
+# Build
+bin/
+obj/
+dist/
+*.user
+
+# Outils locaux
+.claude/
+.vs/
+.vscode/
