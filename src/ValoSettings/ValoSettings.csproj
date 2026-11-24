@@ -14,7 +14,7 @@
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>false</SelfContained>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-    <Version>2.0.0</Version>
+    <Version>1.0.0</Version>
     <ApplicationIcon>icon\app.ico</ApplicationIcon>
     <DebugType>embedded</DebugType>
     <AllowedReferenceRelatedFileExtensions>-</AllowedReferenceRelatedFileExtensions>
