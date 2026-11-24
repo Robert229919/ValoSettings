@@ -27,6 +27,10 @@
 - **Sauvegarde automatique** du compte cible avant chaque application. Elle est **supprimée définitivement au bout d'1 h**.
 - Les infos propres au compte (CGU acceptées, tutos vus…) ne sont jamais copiées.
 
+## Télécharger
+
+**[⬇ ValoSettings v1.0.0 (Windows 10/11, 64 bits)](https://github.com/Robert229919/ValoSettings/releases/latest)**. Un seul `.exe`, rien à installer. Il n'est pas signé : si SmartScreen s'affiche, clique sur « Informations complémentaires » puis « Exécuter quand même ».
+
 ## Utilisation
 
 1. Ouvre le **Riot Client** et connecte-toi au compte source → **+ Enregistrer**.
