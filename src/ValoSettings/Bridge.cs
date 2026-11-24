@@ -259,7 +259,9 @@ public sealed class Bridge(Form owner, CoreWebView2 core)
         if (expected is not null && !string.Equals(expected, s.Puuid, StringComparison.OrdinalIgnoreCase))
             throw new RiotException($"Le compte connecté a changé (c'est maintenant {s.RiotId}). Vérifie et recommence.");
 
-        await AppService.ApplyAsync(s, p, cats, text => Push("log", text));
+        AccountStore.MarkOwnApply(s.Puuid);
+        try { await AppService.ApplyAsync(s, p, cats, text => Push("log", text)); }
+        finally { AccountStore.MarkOwnApply(s.Puuid); }
         return true;
     }
 

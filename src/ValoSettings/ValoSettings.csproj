@@ -9,12 +9,13 @@
     <AssemblyName>ValoSettings</AssemblyName>
     <RootNamespace>ValoSettings</RootNamespace>
     <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
-    <!-- Publish: un seul .exe (nécessite le runtime .NET 10 Desktop) -->
+    <!-- Publish: un seul .exe (runtime .NET inclus) -->
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PublishSingleFile>true</PublishSingleFile>
-    <SelfContained>false</SelfContained>
+    <SelfContained>true</SelfContained>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <ApplicationIcon>icon\app.ico</ApplicationIcon>
     <DebugType>embedded</DebugType>
     <AllowedReferenceRelatedFileExtensions>-</AllowedReferenceRelatedFileExtensions>

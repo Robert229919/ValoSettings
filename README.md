@@ -46,7 +46,7 @@ Les profils sont stockés dans `%APPDATA%\ValoSettings\profiles`.
 
 ## Compiler
 
-Prérequis : Windows 10/11, [.NET 10 SDK](https://dotnet.microsoft.com/download), Microsoft Edge WebView2 (inclus dans Windows 11).
+Prérequis : Windows 10/11, [.NET 10 SDK](https://dotnet.microsoft.com/download), Microsoft Edge WebView2 (déjà présent sur Windows 11 et la plupart des Windows 10 à jour).
 
 ```powershell
 dotnet publish src\ValoSettings -c Release -o dist

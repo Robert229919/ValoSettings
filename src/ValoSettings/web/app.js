@@ -209,7 +209,7 @@ function renderAccounts() {
       <span>Connecte-toi à un compte dans le Riot Client.</span></div>`;
     return;
   }
-  const head = `<div class="thead micro"><span>N°</span><span>Compte</span><span>Région</span><span>Dernière partie</span><span class="num">Sensi</span><span class="num">Profils</span></div>`;
+  const head = `<div class="thead micro"><span>N°</span><span>Compte</span><span>Région</span><span>Dernière activité</span><span class="num">Sensi</span><span class="num">Profils</span></div>`;
   grid.innerHTML = head + list.map((a, i) => {
     const sensi = fmtSensi(a.sensitivity);
     const played = fmtDate(a.lastPlayed || a.lastSeen);

@@ -10,6 +10,10 @@ public sealed class AccountInfo
     public string? RiotId { get; set; }
     public string? Label { get; set; }
     public DateTime? LastSeen { get; set; }
+
+    /// <summary>Date d'activité avant une application faite par cet outil (qui réécrit les fichiers du compte).</summary>
+    public DateTime? PlayedOverride { get; set; }
+    public DateTime? AppliedAt { get; set; }
 }
 
 /// <summary>Compte Valorant trouvé dans %LOCALAPPDATA%\VALORANT\Saved\Config.</summary>
@@ -66,6 +70,7 @@ public static partial class AccountStore
     {
         var root = LocalFiles.Root;
         var list = new List<LocalAccount>();
+        var known = Load().GroupBy(kv => kv.Key.ToLowerInvariant()).ToDictionary(g => g.Key, g => g.First().Value);
         if (!Directory.Exists(root)) return list;
         foreach (var dir in Directory.GetDirectories(root))
         {
@@ -74,10 +79,37 @@ public static partial class AccountStore
             var rus = Path.Combine(dir, "Windows", "RiotUserSettings.ini");
             var gus = Path.Combine(dir, "WindowsClient", "GameUserSettings.ini");
             var times = new[] { rus, gus }.Where(File.Exists).Select(File.GetLastWriteTime).ToList();
-            var last = times.Count > 0 ? times.Max() : Directory.GetLastWriteTime(dir);
+            var last = LastWriteOf(dir);
+            var puuid = m.Groups[1].Value.ToLowerInvariant();
+            // Les fichiers modifiés par une application de profil (ou la synchro Riot qui suit) ne comptent pas comme une partie.
+            if (known.TryGetValue(puuid, out var inf) && inf.PlayedOverride is DateTime keep && inf.AppliedAt is DateTime ap && last <= ap.AddMinutes(10))
+                last = keep;
             list.Add(new LocalAccount(m.Groups[1].Value.ToLowerInvariant(), m.Groups[2].Value.ToUpperInvariant(), last, ReadSensitivity(rus)));
         }
         return list;
+    }
+
+    static DateTime LastWriteOf(string dir)
+    {
+        var times = new[] { Path.Combine(dir, "Windows", "RiotUserSettings.ini"), Path.Combine(dir, "WindowsClient", "GameUserSettings.ini") }
+            .Where(File.Exists).Select(File.GetLastWriteTime).ToList();
+        return times.Count > 0 ? times.Max() : Directory.GetLastWriteTime(dir);
+    }
+
+    /// <summary>À appeler avant et après une application de profil : garde la date d'activité d'origine du compte.</summary>
+    public static void MarkOwnApply(string puuid)
+    {
+        var d = Load();
+        var key = d.Keys.FirstOrDefault(k => string.Equals(k, puuid, StringComparison.OrdinalIgnoreCase)) ?? puuid;
+        var a = d.TryGetValue(key, out var x) ? x : d[key] = new AccountInfo();
+        var now = DateTime.Now;
+        if (a.PlayedOverride is null || a.AppliedAt is null || now > a.AppliedAt.Value.AddMinutes(10))
+        {
+            var dir = LocalFiles.AccountDir(puuid);
+            a.PlayedOverride = dir is null ? null : LastWriteOf(dir);
+        }
+        a.AppliedAt = now;
+        Save(d);
     }
 
     static double? ReadSensitivity(string rus)
