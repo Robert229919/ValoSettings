@@ -33,9 +33,14 @@
 
 ## Utilisation
 
-1. Ouvre le **Riot Client** et connecte-toi au compte source → **+ Enregistrer**.
-2. Connecte-toi au compte cible (**Valorant fermé**, Riot Client ouvert).
-3. **Profils** → **Appliquer →** → choisis les catégories → **Appliquer**.
+1. Ouvre le **Riot Client (le launcher)** avec le compte qui a les bonnes touches, puis clique sur **+ Enregistrer**.
+2. **Ferme le launcher** (et le jeu). Laisse ValoSettings ouvert.
+3. **Rouvre le launcher avec le nouveau compte** (Valorant fermé).
+4. **Profils** → **Appliquer →** → choisis les catégories → **Appliquer**.
+
+Ce guide est aussi affiché dans l'appli (onglet Comptes → « Comment ça marche »).
+
+**Mises à jour** : au démarrage, ValoSettings regarde sur GitHub si une nouvelle version est sortie et te demande si tu veux la télécharger. Seule une requête vers l'API publique de GitHub est faite, aucune donnée perso n'est envoyée.
 
 Les profils sont stockés dans `%APPDATA%\ValoSettings\profiles`.
 

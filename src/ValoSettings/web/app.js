@@ -662,10 +662,35 @@ function previewRoute() {
 // ---------------------------------------------------------------------------
 // Démarrage
 // ---------------------------------------------------------------------------
+async function checkUpdate() {
+  let u;
+  try { u = await api("checkUpdate"); } catch { return; }
+  if (!u || !u.available || store.get("skipUpdate", "") === u.latest) return;
+  let accepted = false;
+  const m = overlay(`
+    <h2>Nouvelle version disponible</h2>
+    <p>La version <b>${esc(u.latest)}</b> de  est sortie (tu utilises la ${esc(u.current)}). Veux-tu mettre à jour ?</p>
+    <p>Une page s'ouvre dans ton navigateur : télécharge le nouveau .exe, ferme , puis remplace l'ancien.</p>
+    <div class="dialog-actions">
+      <button class="btn" data-x>Non</button>
+      <button class="btn primary" data-ok>[ Mettre à jour ]</button>
+    </div>`, { label: "Nouvelle version", onClose: () => { if (!accepted) store.set("skipUpdate", u.latest); } });
+  $("[data-x]", m.el).onclick = () => m.close();
+  $("[data-ok]", m.el).onclick = async () => {
+    accepted = true; m.close();
+    try { await api("openUpdate"); } catch (e) { fail(e); }
+  };
+  $("[data-ok]", m.el).focus();
+}
+
 (async function start() {
+  const howto = $("#howto");
+  howto.open = store.get("howto", true);
+  howto.addEventListener("toggle", () => store.set("howto", howto.open));
   log("ValoSettings prêt.");
   await refreshStatus();
   await loadProfiles();
+  checkUpdate();
   setInterval(refreshStatus, 3000);
   // Sauvegardes : compte à rebours et disparition après 1 h.
   setInterval(() => { if (state.backups.length) loadProfiles(); }, 60000);
@@ -790,6 +815,8 @@ function mockApi(cmd, args = {}) {
       mock.profiles.unshift(p);
       return wait(p);
     }
+    case "checkUpdate": return wait(location.hash.includes("update") ? { current: "1.0.0", latest: "1.1.0", available: true } : { current: "1.1.0", available: false });
+    case "openUpdate": return wait(true);
     case "openFolder": return wait(true);
     default: return err("Commande inconnue : " + cmd);
   }

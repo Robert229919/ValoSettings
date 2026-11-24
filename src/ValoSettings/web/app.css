@@ -691,3 +691,10 @@ input[type="text"]:focus-visible, textarea:focus-visible { outline: none; }
 ::-webkit-scrollbar-thumb:hover { background-color: var(--faint); }
 .log::-webkit-scrollbar-thumb, .runlog::-webkit-scrollbar-thumb { background-color: #4A4A46; }
 .log::-webkit-scrollbar-thumb:hover, .runlog::-webkit-scrollbar-thumb:hover { background-color: #6A6A64; }
+
+/* ============================================================ Guide « Comment ça marche » */
+.howto { margin: 0 0 var(--s5); }
+.howto-steps { margin: 0; padding: 6px 20px 8px 42px; display: grid; gap: 10px; color: var(--ink-2); font-size: 14px; line-height: 1.5; }
+.howto-steps li::marker { font: 700 12px var(--mono); color: var(--muted); }
+.howto-steps b { color: var(--ink); }
+.howto-note { margin: 0; padding: 0 20px 6px 20px; color: var(--muted); font-size: 12.5px; }

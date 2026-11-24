@@ -56,6 +56,8 @@ public sealed class Bridge(Form owner, CoreWebView2 core)
         "importFile" => ImportFile(),
         "importCode" => Dto(AppService.ImportCode(Arg(a, "code"))),
         "setLabel" => SetLabel(a),
+        "checkUpdate" => await Updater.CheckAsync(),
+        "openUpdate" => Updater.OpenReleasePage(),
         "openFolder" => OpenFolder(),
         _ => throw new RiotException("Commande inconnue : " + cmd),
     };
